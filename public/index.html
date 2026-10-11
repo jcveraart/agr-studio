@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111914" />
+    <meta name="description" content="Your personal road to the Amstel Gold Race. Adaptive cycling plans, an intuitive training calendar, and a coach built around your life." />
+    <title>AGR Studio — Your road to the Cauberg</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23111914'/%3E%3Cpath d='M12 43 28 19h9L23 43m12-24 16 24H40l-6-10' fill='%23d3f36a'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/editorial.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div id="app">
+      <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#dashboard" data-view="dashboard" aria-label="AGR Studio home">
+          <svg class="brand-mark" width="36" height="34" viewBox="0 0 36 34" aria-hidden="true"><path d="M1 28 16 5h7L9 28M23 5l12 23H25l-7-13" fill="currentColor" /></svg>
+          <span><strong>AGR</strong><span class="brand-studio">STUDIO</span></span>
+        </a>
+        <div class="nav-label">YOUR TRAINING SPACE</div>
+        <nav id="nav"></nav>
+        <div class="sidebar-bottom"></div>
+      </aside>
+      <div class="sidebar-scrim" aria-hidden="true"></div>
+      <div class="workspace">
+        <header class="topbar">
+          <div class="topbar-start"><div id="breadcrumb"></div></div>
+          <div id="top-actions"></div>
+        </header>
+        <main id="content" tabindex="-1"></main>
+      </div>
+    </div>
+    <div id="modal-root"></div>
+    <div id="toast" class="toast" aria-live="polite" role="status"></div>
+    <noscript><div class="noscript-message">AGR Studio needs JavaScript to create and save your training plan. Please enable JavaScript in your browser.</div></noscript>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

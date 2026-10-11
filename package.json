@@ -1,0 +1,9 @@
+{
+  "name": "agr-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first, bilingual training studio for the Amstel Gold Race Toerversie",
+  "scripts": {"start": "node server.js", "test": "node --test tests/*.test.js", "check": "node --check server.js && node --check launcher.js && node --check public/app.js && node --check public/training.js && node --check public/places.js && node --check public/features.js && node --check public/utils.js"},
+  "engines": {"node": ">=20.12"}
+}

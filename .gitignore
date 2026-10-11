@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+*.log
+data/
+backups/
+.DS_Store
+# Available locally; current GitHub OAuth login has no workflow scope.
+.github/workflows/test.yml
