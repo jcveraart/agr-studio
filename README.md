@@ -1,24 +1,14 @@
 # AGR Studio
 
-AGR Studio now includes a local terrain library, a live nearby cycle-path candidate search, guided three-step rider setup and a quieter cycling-journal design. It remains local-first and bilingual. Automated tests run locally with `npm test`; the included local GitHub Actions template is not uploaded because the current GitHub login lacks workflow permission.
+A local, bilingual training workspace for experienced cyclists preparing for the **Amstel Gold Race Toerversie**. Plan around your actual training history and available time, combine local climbs into repeat routes, record your effort and recovery, and adjust the coming weeks.
 
-Choose **Local riding** to use Van Brienenoordbrug, the Tweede Heinenoordtunnel area, a flat loop, your indoor trainer or a custom segment. Short-climb sessions use your editable effort and return timings without adding minutes. Per-workout terrain changes provide a rain option. Daily minute limits, week-specific days, busy-week hour caps and time-away dates make the schedule fit real life.
+![Training dashboard — fictional demo rider](docs/screenshots/01-overview.png)
 
-The nearby finder uses PDOK town-centre geocoding and OpenStreetMap/Overpass cycle-path bridge/incline data only after you submit and consent. Results are candidates to inspect, with map/source links; the app does not infer reliable gradient, elevation gain, current access or safe repetition routes. No live GPS is collected. See [local riding research](LOCAL-RIDING.md).
+[10 screenshots](docs/SCREENSHOTS.md) · [Strava connection guide](docs/STRAVA.md) · [Training evidence and limitations](SCIENCE.md) · [Local riding research](LOCAL-RIDING.md) · [Event research](RACE-RESEARCH.md)
 
-Other additions include an AGR skills passport, ascent logging, a weekly actual-versus-scheduled review, Zwift `.zwo` exports and a structured coaching brief for use with a GPT you trust in ChatGPT. GPT Store GPTs cannot be directly embedded in this app; the built-in coach uses the OpenAI API or local Ollama. No live AI response has been verified without a configured real provider.
+## Quick start
 
-A local training website for the **Amstel Gold Race Toerversie**. Build a plan around your available hours, prepare for the Limburg hills, record how training felt, and adapt the next sessions as life changes. The interface works in English and Dutch.
-
-The next organizer-confirmed Toerversie is **Saturday 17 April 2027**, with published options of **65, 100, 125, 150, 200 and 240 km**. Route and ascent figures remain subject to change. AGR Studio is an independent project with no affiliation to the organizer or JOIN Cycling.
-
-[Public repository](https://github.com/jcveraart/agr-studio) · [Race research](RACE-RESEARCH.md) · [Training science and assumptions](SCIENCE.md)
-
-## Open it locally
-
-You need **Node.js 20.12 or newer** and a modern browser. The application has no npm dependencies, build step or account requirement.
-
-On Windows, double-click **`Start AGR Studio.cmd`** in this folder. The launcher starts the local application and opens it in Chrome. If you prefer starting it yourself:
+Requires **Node.js 20.12 or later**. There are no npm dependencies to install.
 
 ```sh
 git clone https://github.com/jcveraart/agr-studio.git
@@ -26,126 +16,97 @@ cd agr-studio
 npm start
 ```
 
-Open [http://127.0.0.1:4177](http://127.0.0.1:4177) in Chrome. Keep the local server running while using the site. If you started it in a terminal, press `Ctrl+C` there to stop it. Open the website through the local address rather than opening `public/index.html` directly.
+Open **http://127.0.0.1:4177/** in Chrome. Keep the server running while using the website. On Windows, you can also double-click `Start AGR Studio.cmd` in the repository folder. The server listens only on your computer.
 
-## Your first plan
+The site is a local single-rider application. GitHub hosts its source and instructions; it does not run the private backend or store your training account.
 
-The initial profile is a **preview**. It demonstrates the interface until you save your own information; it is not an assessment of your fitness.
+## Set up your training
 
-1. Choose a route distance and your goal: finish comfortably, ride strongly, or work toward performance.
-2. Enter your current cycling volume and realistic weekly training time. Select the days you can train and your preferred long-ride day.
-3. Set your experience, plan start and event date. Add power or heart-rate information when available; perceived effort is also supported.
-4. Add your other recurring sports with their day, duration and intensity. They consume training time and affect recovery.
-5. Save your profile. Review the resulting week and edit sessions whenever your calendar changes.
+1. Enter your goal, event distance, current weekly training and available hours. These are separate inputs: spare time alone should not determine your starting load.
+2. Choose cycling days, a long-ride day, daily time limits and other sports. FTP is optional; effort cues remain available without a power meter.
+3. Review the generated week and edit individual sessions. Add busy-week caps, different available days and time away as needed.
 
-Weekly hours are a planning ceiling, not a quota to fill. A recovery week, a busy week or a period of fatigue can contain fewer hours. A short timeline or a limited time budget may make a long-distance target unrealistic; the app cannot promise readiness.
+The event countdown targets **17 April 2027**. Six distance options are available: 65, 100, 125, 150, 200 and 240 km. Route details are provisional; see the event research for sources and confirmation limits. Switch between English and Dutch in the interface.
 
-## What you can do
+## Find climbs and build repeat routes
 
-| Area | Purpose |
-|---|---|
-| Dashboard | See the race countdown, your next workout and a summary of the current training week. |
-| Weekly plan | Review cycling, other sports and rest together; adjust individual sessions. |
-| Calendar | Browse the schedule and export an `.ics` file for another calendar application. |
-| Recovery | Record sleep, fatigue, soreness and stress, so upcoming training reflects how you feel. |
-| Activity feedback | Record actual duration, perceived exertion and how a completed session went. |
-| Progress | Review logged training and consistency; these are planning indicators rather than physiological measurements. |
-| Race preparation | Compare distance options, consult organizer links and work through practical preparation. |
-| AI coach | Ask a connected model for advice and review proposed conservative session changes. |
-| Settings | Switch language, connect an optional AI provider, and export or restore your data. |
+In **Local riding**, search from a Dutch town centre and choose a radius. With your consent, the search uses PDOK and OpenStreetMap/Overpass for mapped cycling bridges and inclines. Save a candidate or add your own riding location. Edit its effort duration, recovery/return time, approach time and start/finish coordinates.
 
-Your planned schedule is recalculated from your profile, recovery and activity history. Personal session edits are retained as overrides. Missed sessions do not become a debt to repay with extra hard workouts. Check upcoming sessions after changing your profile, reporting fatigue or adding substantial other exercise.
+In **Training routes**, select climbs and their repetition counts, reorder blocks, choose a starting town or coordinates, and calculate a cycling route. The builder supports 1–12 repetitions per block, up to six blocks and 31 total repetitions. BRouter connects the requested waypoints along cycling routes; the output is actual road geometry rather than straight lines. Save the route, export GPX, or assign it to a scheduled workout.
 
-The calendar export contains **all-day entries**, with workout duration and effort in the description. It is a snapshot, not a live subscription: export again after changing the plan. Re-importing the same calendar file may create duplicates depending on your calendar application.
+The app compares route duration with the workout budget. Assigning a route preserves the session's intensity category; endurance repetitions remain endurance. If a later adjustment makes the workout too short, it flags a conflict instead of silently fitting a long route into less time. Distance and time estimates need rider review.
 
-## Adaptive planning and real AI
+Two Van Brienenoordbrug cycling approaches have mapped endpoints checked against OpenStreetMap on 12 October 2026. The public demo combines **3 south-approach repeats + 2 north-approach repeats** in a calculated **14.6 km** loop. If live map search is unavailable, the site can show its small mapped catalog and labels that result as incomplete. Inspect access, one-way directions, crossings, surface and turnaround points before riding. Terrain elevation models can miss bridge height, so route GPX exports omit unreliable elevation values.
 
-The local planner uses transparent, scientifically informed rules. It considers training history, available time, other sports, recent feedback and the time remaining before the event. It structures easy endurance, controlled harder work, recovery and a taper. The rules and their limits are described in [SCIENCE.md](SCIENCE.md).
+The Heinenoord area is also available as a configurable training location. Use the permitted cycling tunnel and suitable approaches; escalators and ramps intended for other traffic are not training repetitions. Flat-road and indoor alternatives keep the intended effort available when local terrain or weather is unsuitable.
 
-This planner works without an AI connection. It is a rule-based planning engine, not a trained predictive model, and the implementation has not been clinically or prospectively validated. No built-in fitness or completion guarantee is implied.
+## Adjust, train and review
 
-The **AI coach** is a separate, optional connection to a real OpenAI or local Ollama model. Until a provider is configured, the interface clearly reports that the coach is disconnected. There are no simulated model replies presented as AI.
+- Edit a workout's date, duration, type and terrain, or move it within your availability.
+- Use week-specific hour limits, available days and time-away dates.
+- Record actual duration, perceived effort, manually entered ascent and notes in the journal.
+- Enter recovery feedback and review the proposed adjustments. Missed sessions do not create catch-up intensity.
+- Compare completed and scheduled training; export workouts as Zwift `.zwo` files and your calendar as `.ics`.
+- Export and restore your local training backup. Strava data and connection secrets are excluded.
 
-The coach can explain a training choice and suggest changes to existing upcoming cycling sessions. Plan edits are bounded to reducing duration, making a session recovery, or resting. It cannot automatically increase volume, add intervals, move event dates, change other sports, or rewrite completed activities. You review suggestions before applying them; unsupported suggestions are rejected.
+The local planner uses conservative progression, easy riding, spacing between quality sessions, recovery weeks and tapering. Its workload estimates are heuristics, not TrainingPeaks TSS, clinical validation or fitness guarantees. The evidence and assumptions are documented in [SCIENCE.md](SCIENCE.md).
 
-Advice from a language model can still be wrong. Use your own judgment, especially around illness, pain or persistent exhaustion. This app provides training support, not diagnosis or treatment.
+## Connect your Strava
 
-## Connect OpenAI
+Open **Strava** from the website and enter your own API app credentials in its local form. Authorize the connection on Strava, then return to view recent activity summaries. Follow the [step-by-step guide](docs/STRAVA.md), including the callback domain and troubleshooting.
 
-In Settings, choose **OpenAI**, enter your own API key and a model name, then save the connection. The default model is **`gpt-4.1-mini`**. A key entered through the interface is held in the local server's memory and is not included in browser storage or backups. Restarting the server clears that connection unless you also configured an environment file.
+Strava is an **isolated activity viewer**. Current Strava policy restricts AI processing and analytics/combination of API data, so those activities are not sent to the coach, imported into planning, or included in training backups. No activity streams, heart-rate streams or GPS tracks are requested. Training logs are entered independently.
 
-Alternatively, copy `.env.example` to **`.env.local`**, fill in the variables and restart:
+Connection credentials and rotating OAuth tokens are encrypted in the ignored `.private-strava/` folder. The encryption key is stored alongside that data; encryption does not protect against someone who can read the entire folder. Disconnect to revoke access, or use the local forget option and revoke access in Strava yourself.
+
+## Optional AI coaching
+
+The application works without an AI key. To request real model advice, configure an OpenAI API key in the local coaching settings, or run Ollama and select an installed model. A GPT Store GPT cannot simply be embedded as an API endpoint. API access requires its own credentials and may have usage costs.
+
+The coach receives the independent training profile, manually entered feedback and planned sessions. Its proposed changes are limited to conservative reductions of future cycling sessions. Suggestions require review before application; unsupported changes are rejected. Without a configured provider, the app does not present heuristic advice as a live AI response.
+
+Optional persistent settings: copy `.env.example` to `.env.local`, then fill only the values you need. Never publish this file.
 
 ```dotenv
-OPENAI_API_KEY=your_own_api_key
+OPENAI_API_KEY=
 OPENAI_MODEL=gpt-4.1-mini
+OLLAMA_MODEL=
 PORT=4177
+STRAVA_CLIENT_ID=
+STRAVA_CLIENT_SECRET=
 ```
 
-`.env.local` is ignored by Git. Keep it private, and do not paste a real key into source files, screenshots, issues or a shared backup. Existing environment variables take precedence over entries in the file.
+## Privacy and screenshots
 
-OpenAI requests are sent by the local backend to the **Responses API**, with structured JSON output and `store: false`. The selected model must support this request format and be available to your API account. Consult the official [text generation documentation](https://developers.openai.com/api/docs/guides/text) and [GPT-4.1 mini model page](https://developers.openai.com/api/docs/models/gpt-4.1-mini). API use is billed by the provider according to your account and usage.
+Your training profile, journal and route library are saved in this browser's local storage. Use the backup export before clearing browser data or switching computers. Keys entered through settings remain server-side; `.env.local`, `.private-strava/`, local backups and logs are ignored by Git. Mapping/routing services receive the search locations you explicitly submit. The optional AI provider receives the training context you explicitly send.
 
-`store: false` does not establish zero data retention for every account or provider purpose. The applicable rules are explained in OpenAI's [API data controls documentation](https://developers.openai.com/api/docs/guides/your-data).
+The [screenshot gallery](docs/SCREENSHOTS.md) contains **10 actual Chrome screenshots** of a fictional rider, not private account data or generated interface mockups. The Strava screenshot uses a disconnected demo screen. Explore this isolated example at `http://127.0.0.1:4177/?demo=1`; its edits do not overwrite your saved profile. Optional parameters include `view=plan`, `view=calendar`, `view=routes` and `lang=nl`.
 
-## Connect a local Ollama model
+## Checks and source
 
-Run Ollama on this computer with a model you have installed. In Settings, choose **Ollama** and enter that model's exact installed name. AGR Studio sends requests to `http://127.0.0.1:11434/api/chat` through its backend.
-
-You can also set this in `.env.local`:
-
-```dotenv
-OLLAMA_MODEL=your_installed_model_name
-PORT=4177
+```sh
+npm run check
+npm test
 ```
 
-Leave `OPENAI_API_KEY` empty when you want Ollama selected automatically at startup. If both are set, OpenAI takes precedence. Local model speed and ability to return the requested JSON depend on your model and hardware; malformed responses leave your plan unchanged.
+Tests cover planning budgets, availability, recovery adaptations, route repetitions and exports, request guards, and Strava OAuth/storage/refresh behavior with synthetic fixtures. The local GitHub Actions template is excluded from publication because the current GitHub login lacks workflow permission; run the checks locally or add a workflow using your own authorized GitHub account.
 
-## Data and privacy
-
-Your profile, workout logs, recovery check-ins, session overrides, preparation checklist and coach conversation are stored in **Chrome localStorage** for this website's address. AGR Studio has no cloud account, automatic sync or server-side athlete database.
-
-Browser data belongs to the combination of browser profile and website address. A different port, `localhost` instead of `127.0.0.1`, another browser, or another device may appear to have a fresh profile. Incognito data is temporary, and clearing website data removes the saved information.
-
-Use **Export backup** regularly to download a JSON copy. Store it somewhere private. Use **Import backup** to restore it; importing replaces the current local data, so export your existing state first if you want to keep it. Backups can contain personal information and coaching messages. API keys are excluded.
-
-Before each coaching request, the app asks for consent to share the training profile, recent activity and recovery data, and upcoming schedule with the selected provider. The profile name and activity freeform notes are excluded from the structured context. The message you write to the coach is sent as written, so include only what you intend to share. Choosing a provider alone does not send your training history.
-
-The server listens on **`127.0.0.1` only**. It is intended for one person using their own computer, not public hosting. Public GitHub source does not include your local profile or credentials. Do not expose this server through port forwarding or a tunnel as a substitute for a secured deployment.
-
-## Event information
-
-[RACE-RESEARCH.md](RACE-RESEARCH.md) records the checked organizer sources and distinguishes confirmed details from provisional ones. The interface links to official registration and participant information.
-
-The published registration period for the 2027 Toerversie is **1–31 October 2026**, followed by a lottery. The app does not register you for the event or establish that a ticket is available. Routes, ascent totals, collection times and other arrangements should be checked again with the organizer before travel. There are no guaranteed final 2027 GPX tracks in this project.
-
-## Current limits
-
-- Activities and recovery are entered manually. GPS recording and live Strava, Garmin, Wahoo or health-platform integrations are not implemented.
-- Calendar export and JSON backups are file exports; there is no automatic cross-device sync.
-- Power, heart rate, load and progress displays depend on your inputs. They are not laboratory tests or a measurement of your current fitness.
-- The event dataset is a researched snapshot rather than a live organizer feed.
-- An AI connection requires your provider setup. A configured key or model name does not guarantee a successful provider response.
+| File | Purpose |
+| --- | --- |
+| `server.js` | Local server, mapping/routing endpoints and optional coaching |
+| `strava-service.js` | Isolated Strava OAuth and activity viewer backend |
+| `public/training.js` | Scheduling and training adaptation |
+| `public/app.js` | Bilingual interface, rider profile and journal |
+| `public/places.js`, `public/climb-catalog.js` | Terrain settings and mapped climb catalog |
+| `public/routes.js` | Repeat routes, workout assignment and GPX export |
+| `public/strava-ui.js` | Strava connection interface |
+| `docs/` | Setup guide and screenshot gallery |
 
 ## Troubleshooting
 
-| Problem | What to check |
-|---|---|
-| The site does not open | Start the server and open `http://127.0.0.1:4177`. Verify Node.js 20.12+ is installed. |
-| Port 4177 is already in use | The site may already be running. Open the address first. To use another port, set `PORT` in `.env.local`, restart, and open that port. |
-| My saved data disappeared | Use the same Chrome profile, address and port. Restore your JSON backup if the browser data was cleared. |
-| The coach is disconnected | Configure OpenAI or Ollama in Settings, or use `.env.local` and restart the server. |
-| OpenAI returns an error | Check your API key, account access, selected model and network connection. No suggestions are applied on failure. |
-| Ollama cannot be reached | Check that Ollama is running locally on port 11434 and that the exact selected model is installed. |
-| The model takes too long | Try again or use a smaller local model. Requests time out after 90 seconds. |
-
-## Development checks
-
-```sh
-npm test
-npm run check
-```
-
-Tests use Node's built-in test runner. Syntax checks cover the server, interface and training engine. The GitHub workflow runs both on Node.js 22 for pushes and pull requests with read-only repository permissions. CI does not call a paid AI provider or require credentials.
-
-The application is plain HTML, CSS and JavaScript, served by `server.js`. Race data lives in `public/race-data.js`; training assumptions and event evidence live in the linked documents. There is no package installation step.
+- **Site unavailable:** start the server and open the exact localhost address. If the port is occupied, the app may already be running. Set `PORT` in `.env.local` if needed; update the Strava callback accordingly.
+- **Map service unavailable:** try again later, use the labeled mapped catalog, or enter your own inspected segment endpoints. The site cannot guarantee a complete list of nearby climbs.
+- **Route will not fit:** lower the repetition count, shorten the approach or assign it to a longer scheduled session.
+- **Strava connection problem:** keep the same hostname throughout authorization and follow [the connection guide](docs/STRAVA.md).
+- **AI unavailable:** check your own provider credentials or running Ollama instance. Local planning still works.
+- **Missing saved profile:** local storage belongs to the browser and origin you used. Restore an exported training backup if necessary.

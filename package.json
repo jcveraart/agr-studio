@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "description": "Local-first, bilingual training studio for the Amstel Gold Race Toerversie",
-  "scripts": {"start": "node server.js", "test": "node --test tests/*.test.js", "check": "node --check server.js && node --check launcher.js && node --check public/app.js && node --check public/training.js && node --check public/places.js && node --check public/features.js && node --check public/utils.js"},
+  "scripts": {"start": "node server.js", "test": "node --test tests/*.test.js", "check": "node --check server.js && node --check strava-service.js && node --check launcher.js && node --check public/app.js && node --check public/training.js && node --check public/places.js && node --check public/features.js && node --check public/utils.js && node --check public/routes.js && node --check public/strava-ui.js"},
   "engines": {"node": ">=20.12"}
 }

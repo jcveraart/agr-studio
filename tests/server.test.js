@@ -34,6 +34,9 @@ before(async () => {
   sandbox = await mkdtemp(join(tmpdir(), 'agr-studio-server-test-'));
   await mkdir(join(sandbox, 'public'));
   await writeFile(join(sandbox, 'server.mjs'), await readFile(new URL('../server.js', import.meta.url)));
+  await writeFile(join(sandbox, 'strava-service.js'), await readFile(new URL('../strava-service.js', import.meta.url)));
+  await writeFile(join(sandbox, 'package.json'), JSON.stringify({type:'module'}));
+  for(const name of ['routes.js','places.js','utils.js','climb-catalog.js'])await writeFile(join(sandbox,'public',name),await readFile(new URL('../public/'+name,import.meta.url)));
   await writeFile(join(sandbox, 'public', 'index.html'), html);
   await writeFile(join(sandbox, 'public', 'asset.js'), 'export const local = true;');
   const port = await freePort();
